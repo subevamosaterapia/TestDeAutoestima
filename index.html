@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Autoestima</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap">
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            background: url('images/fondo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            position: relative;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        .question p {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .question label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .question input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 2px solid red;
+            padding: 20px;
+            text-align: center;
+            z-index: 1000;
+        }
+        .popup p {
+            color: red;
+            font-size: 18px;
+            margin: 0;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            height: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .progress {
+            height: 100%;
+            background-color: #007bff;
+            width: 0;
+            transition: width 0.3s;
+        }
+        .missing-answer {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <p>Te faltan preguntas por responder</p>
+        <button onclick="document.getElementById('popup').style.display='none'; document.getElementById('overlay').style.display='none';">Cerrar</button>
+    </div>
+    <div class="container">
+        <h1>Test de Autoestima</h1>
+        <form id="quiz-form">
+            <!-- Pregunta 1 -->
+            <div class="question">
+                <p>Tengo seguridad en mí mismx.</p>
+                <label><input type="radio" name="q1" value="1"> Nunca</label>
+                <label><input type="radio" name="q1" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q1" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q1" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q1"></span>
+            </div>
+
+            <!-- Pregunta 2 -->
+            <div class="question">
+                <p>Me siento satisfechx con mis logros.</p>
+                <label><input type="radio" name="q2" value="1"> Nunca</label>
+                <label><input type="radio" name="q2" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q2" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q2" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q2"></span>
+            </div>
+
+            <!-- Pregunta 3 -->
+            <div class="question">
+                <p>Me gusta mi apariencia.</p>
+                <label><input type="radio" name="q3" value="1"> Nunca</label>
+                <label><input type="radio" name="q3" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q3" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q3" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q3"></span>
+            </div>
+
+            <!-- Pregunta 4 -->
+            <div class="question">
+                <p>Me siento capaz de enfrentar desafíos.</p>
+                <label><input type="radio" name="q4" value="1"> Nunca</label>
+                <label><input type="radio" name="q4" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q4" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q4" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q4"></span>
+            </div>
+
+            <!-- Pregunta 5 -->
+            <div class="question">
+                <p>Me siento bien con mis habilidades.</p>
+                <label><input type="radio" name="q5" value="1"> Nunca</label>
+                <label><input type="radio" name="q5" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q5" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q5" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q5"></span>
+            </div>
+
+            <!-- Pregunta 6 -->
+            <div class="question">
+                <p>Los demás me valoran.</p>
+                <label><input type="radio" name="q6" value="1"> Nunca</label>
+                <label><input type="radio" name="q6" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q6" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q6" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q6"></span>
+            </div>
+
+            <!-- Pregunta 7 -->
+            <div class="question">
+                <p>Me siento optimista sobre mi futuro.</p>
+                <label><input type="radio" name="q7" value="1"> Nunca</label>
+                <label><input type="radio" name="q7" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q7" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q7" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q7"></span>
+            </div>
+
+            <!-- Pregunta 8 -->
+            <div class="question">
+                <p>Siento satisfacción con mi vida en general.</p>
+                <label><input type="radio" name="q8" value="1"> Nunca</label>
+                <label><input type="radio" name="q8" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q8" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q8" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q8"></span>
+            </div>
+
+            <!-- Pregunta 9 -->
+            <div class="question">
+                <p>Me siento capaz de lograr mis metas.</p>
+                <label><input type="radio" name="q9" value="1"> Nunca</label>
+                <label><input type="radio" name="q9" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q9" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q9" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q9"></span>
+            </div>
+
+            <!-- Pregunta 10 -->
+            <div class="question">
+                <p>Me siento queridx por quienes me rodean.</p>
+                <label><input type="radio" name="q10" value="1"> Nunca</label>
+                <label><input type="radio" name="q10" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q10" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q10" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q10"></span>
+            </div>
+
+            <!-- Pregunta 11 -->
+            <div class="question">
+                <p>Confío en mis decisiones.</p>
+                <label><input type="radio" name="q11" value="1"> Nunca</label>
+                <label><input type="radio" name="q11" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q11" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q11" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q11"></span>
+            </div>
+
+            <!-- Pregunta 12 -->
+            <div class="question">
+                <p>Me siento feliz con mis relaciones personales.</p>
+                <label><input type="radio" name="q12" value="1"> Nunca</label>
+                <label><input type="radio" name="q12" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q12" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q12" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q12"></span>
+            </div>
+
+            <!-- Pregunta 13 -->
+            <div class="question">
+                <p>Siento que tengo un propósito en la vida.</p>
+                <label><input type="radio" name="q13" value="1"> Nunca</label>
+                <label><input type="radio" name="q13" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q13" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q13" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q13"></span>
+            </div>
+
+            <!-- Pregunta 14 -->
+            <div class="question">
+                <p>Me siento satisfechx con mis habilidades sociales.</p>
+                <label><input type="radio" name="q14" value="1"> Nunca</label>
+                <label><input type="radio" name="q14" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q14" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q14" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q14"></span>
+            </div>
+
+            <!-- Pregunta 15 -->
+            <div class="question">
+                <p>Me siento valoradx en mi trabajo o estudio.</p>
+                <label><input type="radio" name="q15" value="1"> Nunca</label>
+                <label><input type="radio" name="q15" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q15" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q15" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q15"></span>
+            </div>
+
+            <!-- Pregunta 16 -->
+            <div class="question">
+                <p>Siento que puedo tomarme un tiempo para mí mismx sin culpa.</p>
+                <label><input type="radio" name="q16" value="1"> Nunca</label>
+                <label><input type="radio" name="q16" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q16" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q16" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q16"></span>
+            </div>
+
+            <!-- Pregunta 17 -->
+            <div class="question">
+                <p>Me siento en paz conmigo mismx.</p>
+                <label><input type="radio" name="q17" value="1"> Nunca</label>
+                <label><input type="radio" name="q17" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q17" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q17" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q17"></span>
+            </div>
+
+            <!-- Pregunta 18 -->
+            <div class="question">
+                <p>Siento que puedo manejar el estrés adecuadamente.</p>
+                <label><input type="radio" name="q18" value="1"> Nunca</label>
+                <label><input type="radio" name="q18" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q18" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q18" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q18"></span>
+            </div>
+
+            <!-- Pregunta 19 -->
+            <div class="question">
+                <p>Siento que tengo un buen equilibrio entre mi vida personal y profesional.</p>
+                <label><input type="radio" name="q19" value="1"> Nunca</label>
+                <label><input type="radio" name="q19" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q19" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q19" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q19"></span>
+            </div>
+
+            <!-- Pregunta 20 -->
+            <div class="question">
+                <p>Siento que estoy en control de mi vida.</p>
+                <label><input type="radio" name="q20" value="1"> Nunca</label>
+                <label><input type="radio" name="q20" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q20" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q20" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q20"></span>
+            </div>
+
+            <!-- Pregunta 21 -->
+            <div class="question">
+                <p>Siento que tengo una actitud positiva hacia la vida.</p>
+                <label><input type="radio" name="q21" value="1"> Nunca</label>
+                <label><input type="radio" name="q21" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q21" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q21" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q21"></span>
+            </div>
+
+            <!-- Pregunta 22 -->
+            <div class="question">
+                <p>Me siento orgullosx de mis logros personales.</p>
+                <label><input type="radio" name="q22" value="1"> Nunca</label>
+                <label><input type="radio" name="q22" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q22" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q22" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q22"></span>
+            </div>
+
+            <!-- Pregunta 23 -->
+            <div class="question">
+                <p>Me siento contentx con la manera en que manejo mis finanzas.</p>
+                <label><input type="radio" name="q23" value="1"> Nunca</label>
+                <label><input type="radio" name="q23" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q23" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q23" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q23"></span>
+            </div>
+
+            <!-- Pregunta 24 -->
+            <div class="question">
+                <p>Siento que tengo tiempo para disfrutar de mis pasatiempos.</p>
+                <label><input type="radio" name="q24" value="1"> Nunca</label>
+                <label><input type="radio" name="q24" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q24" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q24" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q24"></span>
+            </div>
+
+            <!-- Pregunta 25 -->
+            <div class="question">
+                <p>Me siento capaz de enfrentar mis debilidades.</p>
+                <label><input type="radio" name="q25" value="1"> Nunca</label>
+                <label><input type="radio" name="q25" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q25" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q25" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q25"></span>
+            </div>
+
+            <!-- Pregunta 26 -->
+            <div class="question">
+                <p>Siento que puedo superar obstáculos en mi vida.</p>
+                <label><input type="radio" name="q26" value="1"> Nunca</label>
+                <label><input type="radio" name="q26" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q26" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q26" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q26"></span>
+            </div>
+
+            <!-- Pregunta 27 -->
+            <div class="question">
+                <p>Me siento satisfechx con el tiempo que dedico a mi familia y amigos.</p>
+                <label><input type="radio" name="q27" value="1"> Nunca</label>
+                <label><input type="radio" name="q27" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q27" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q27" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q27"></span>
+            </div>
+
+            <!-- Pregunta 28 -->
+            <div class="question">
+                <p>Siento que mi vida tiene sentido.</p>
+                <label><input type="radio" name="q28" value="1"> Nunca</label>
+                <label><input type="radio" name="q28" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q28" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q28" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q28"></span>
+            </div>
+
+            <!-- Pregunta 29 -->
+            <div class="question">
+                <p>Me siento capaz de resolver conflictos de manera efectiva.</p>
+                <label><input type="radio" name="q29" value="1"> Nunca</label>
+                <label><input type="radio" name="q29" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q29" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q29" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q29"></span>
+            </div>
+
+            <!-- Pregunta 30 -->
+            <div class="question">
+                <p>Me siento en control de mis emociones.</p>
+                <label><input type="radio" name="q30" value="1"> Nunca</label>
+                <label><input type="radio" name="q30" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q30" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q30" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q30"></span>
+            </div>
+
+            <!-- Pregunta 31 -->
+            <div class="question">
+                <p>Me siento aceptadx por la comunidad a la que pertenezco.</p>
+                <label><input type="radio" name="q31" value="1"> Nunca</label>
+                <label><input type="radio" name="q31" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q31" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q31" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q31"></span>
+            </div>
+
+            <!-- Pregunta 32 -->
+            <div class="question">
+                <p>Me siento a gusto en el entorno en el que vivo.</p>
+                <label><input type="radio" name="q32" value="1"> Nunca</label>
+                <label><input type="radio" name="q32" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q32" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q32" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q32"></span>
+            </div>
+
+            <!-- Pregunta 33 -->
+            <div class="question">
+                <p>Me siento capaz de tomar decisiones importantes para mi vida.</p>
+                <label><input type="radio" name="q33" value="1"> Nunca</label>
+                <label><input type="radio" name="q33" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q33" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q33" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q33"></span>
+            </div>
+
+            <!-- Pregunta 34 -->
+            <div class="question">
+                <p>Me siento motivadx para alcanzar mis objetivos.</p>
+                <label><input type="radio" name="q34" value="1"> Nunca</label>
+                <label><input type="radio" name="q34" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q34" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q34" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q34"></span>
+            </div>
+
+            <!-- Pregunta 35 -->
+            <div class="question">
+                <p>Me siento capaz de aprender de mis errores.</p>
+                <label><input type="radio" name="q35" value="1"> Nunca</label>
+                <label><input type="radio" name="q35" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q35" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q35" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q35"></span>
+            </div>
+
+            <!-- Pregunta 36 -->
+            <div class="question">
+                <p>Me siento en equilibrio con mi vida laboral y personal.</p>
+                <label><input type="radio" name="q36" value="1"> Nunca</label>
+                <label><input type="radio" name="q36" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q36" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q36" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q36"></span>
+            </div>
+
+            <!-- Pregunta 37 -->
+            <div class="question">
+                <p>Siento que mi vida tiene un propósito claro.</p>
+                <label><input type="radio" name="q37" value="1"> Nunca</label>
+                <label><input type="radio" name="q37" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q37" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q37" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q37"></span>
+            </div>
+
+            <!-- Pregunta 38 -->
+            <div class="question">
+                <p>Siento que mi vida está en la dirección que quiero.</p>
+                <label><input type="radio" name="q38" value="1"> Nunca</label>
+                <label><input type="radio" name="q38" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q38" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q38" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q38"></span>
+            </div>
+
+            <!-- Pregunta 39 -->
+            <div class="question">
+                <p>Siento que tengo una buena salud física.</p>
+                <label><input type="radio" name="q39" value="1"> Nunca</label>
+                <label><input type="radio" name="q39" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q39" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q39" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q39"></span>
+            </div>
+
+            <!-- Pregunta 40 -->
+            <div class="question">
+                <p>Siento que tengo una buena salud mental.</p>
+                <label><input type="radio" name="q40" value="1"> Nunca</label>
+                <label><input type="radio" name="q40" value="2"> Algunas veces</label>
+                <label><input type="radio" name="q40" value="3"> Casi siempre</label>
+                <label><input type="radio" name="q40" value="4"> Siempre</label>
+                <span class="missing-answer" id="error-q40"></span>
+            </div>
+
+            <!-- Botón de Enviar -->
+            <button type="button" onclick="calculateScore()">Enviar</button>
+        </form>
+    </div>
+
+    <!-- Pop-up para advertencias -->
+
+    <script>
+        const form = document.getElementById('quiz-form');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const progressBar = document.querySelector('.progress');
+        let currentQuestion = 0;
+        const questions = document.querySelectorAll('.question');
+        const totalQuestions = questions.length;
+
+        function showQuestion(index) {
+            questions.forEach((question, i) => {
+                question.style.display = (i === index) ? 'block' : 'none';
+            });
+            updateProgressBar(index);
+        }
+
+        function updateProgressBar(index) {
+            const progressPercentage = ((index + 1) / totalQuestions) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestion < totalQuestions - 1) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            }
+        });
+
+        function calculateScore() {
+            let score = 0;
+            const questions = form.querySelectorAll('.question');
+
+            questions.forEach(question => {
+                const selectedAnswer = question.querySelector('input[type="radio"]:checked');
+                if (selectedAnswer) {
+                    score += parseInt(selectedAnswer.value);
+                }
+            });
+
+            if (score >= 104 && score <= 160) {
+                window.location.href = `resultados1.html?result=${score}`;
+            } else if (score >= 84 && score <= 103) {
+                window.location.href = `resultados2.html?result=${score}`;
+            } else if (score >= 74 && score <= 83) {
+                window.location.href = `resultados3.html?result=${score}`;
+            } else if (score >= 40 && score <= 73) {
+                window.location.href = `resultados4.html?result=${score}`;
+            } else {
+                alert('Puntuación no válida.');
+            }
+        }
+
+
+    </script>
+</body>
+</html>

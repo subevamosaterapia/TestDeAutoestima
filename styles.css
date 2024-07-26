@@ -1,0 +1,144 @@
+/* Importación de fuentes personalizadas */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap');
+
+/* Configuración general del cuerpo */
+body {
+    font-family: 'Lexend', sans-serif; /* Fuente para todo el cuerpo */
+    color: #ca01ca; /* Color general del texto */
+    background-image: url('images/fondo.jpg');
+    background-size: cover; /* Ajustar tamaño de la imagen */
+    background-position: center; /* Centrar imagen de fondo */
+    background-repeat: no-repeat; /* No repetir imagen */
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo del contenedor principal */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con algo de transparencia */
+    border-radius: 10px;
+}
+
+/* Estilo del título principal */
+h1 {
+    font-family: 'Lexend', sans-serif;
+    font-size: 38px; /* Tamaño del título principal */
+    color: #ca01ca; /* Color del texto del título */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo para los subtítulos */
+h2 {
+    font-family: 'Lexend', sans-serif;
+    font-size: 11px; /* Tamaño de subtítulos */
+    color: #ca01ca;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo para los párrafos */
+p {
+    font-family: 'Lexend', sans-serif;
+    font-size: 18px; /* Tamaño de párrafos */
+    color: #ca01ca;
+}
+
+/* Estilo para las preguntas y respuestas */
+.question p {
+    margin: 10px 0;
+}
+
+/* Estilo para las opciones */
+.option {
+    font-size: 8px; /* Tamaño de las opciones */
+    margin: 5px 0;
+}
+
+/* Estilo para el botón */
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 11px;
+    color: #ffffff;
+    background-color: #ca01ca;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/* Cambio de color en el hover del botón */
+button:hover {
+    background-color: #a501a1;
+}
+
+/* Estilo para los resultados */
+#result {
+    margin-top: 20px;
+    display: none; /* Ocultar resultados inicialmente */
+}
+
+#result p {
+    font-family: 'Lexend', sans-serif;
+    font-size: 18px;
+    color: #ca01ca;
+}
+
+#result #resultText {
+    font-family: 'Lexend', sans-serif;
+    font-size: 18px;
+}
+
+#result #resultText span {
+    color: #06ffc1; /* Color especial para la palabra "autoestima" */
+    font-weight: bold;
+}
+
+/* Estilo para el pop-up de advertencia */
+#warning-popup {
+    display: none; /* Ocultar el pop-up por defecto */
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    border: 2px solid #ca01ca;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 1000; /* Asegurarse de que esté por encima de otros elementos */
+}
+
+#warning-popup p {
+    margin: 0;
+    font-size: 18px;
+    color: #ca01ca;
+}
+
+#warning-popup button {
+    background-color: #ca01ca;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#warning-popup button:hover {
+    background-color: #a501a1;
+}
+
+/* Estilo para el asterisco en preguntas no respondidas */
+.unanswered {
+    color: red; /* Color del asterisco */
+    font-weight: bold;
+    margin-left: 5px;
+}

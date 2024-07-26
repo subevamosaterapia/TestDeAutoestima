@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados del Test de Autoestima</title>
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('images/fondo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            margin-top: 100px;
+        }
+        h1 {
+            text-align: center;
+            color: #1E3A8A;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .result {
+            font-size: 18px;
+            text-align: center;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            background-color: #1E3A8A;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #1A2E8A;
+        }
+        .instagram-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .instagram-link a {
+            color: #ff1a98;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .instagram-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Resultados del Test de Autoestima</h1>
+        <div class="result">
+            <p id="resultMessage">Tu puntuación ha sido calculada. Consulta el resultado en función de tu puntuación.</p>
+        </div>
+        <button onclick="window.location.href='index.html'">Volver al Test</button>
+    </div>
+
+    <div class="instagram-link">
+        <p>¿Quieres más contenido así? Etiquétame en tus resultados en IG:</p>
+        <a href="https://www.instagram.com/subevamosaterapia/" target="_blank">@SubeVamosATerapia</a>
+    </div>
+
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const result = getQueryParam('result');
+            const resultMessage = document.getElementById('resultMessage');
+            if (result) {
+                const score = parseInt(result);
+                if (score >= 160 && score <= 104) {
+                    resultMessage.innerText = 'Tu autoestima es muy alta, quizá en grado extremo, ten en cuenta que nadie es perfecto e intenta hacer una crítica constructiva de tus actitudes y tus defectos, siempre se puede aprender algo nuevo.';
+                } else if (score >= 103 && score <= 84) {
+                    resultMessage.innerText = 'En estos momentos disfrutas de un saludable nivel de autoestima, estás viviendo un momento positivo y mantienes la energía alta. Reflexiona qué te ha traído hasta aquí e intenta fomentar las actitudes positivas que has cultivado para conseguirlo.';
+                } else if (score >= 83 && score <= 74) {
+                    resultMessage.innerText = 'Tu nivel de autoestima es bueno, aunque estás un poco desanimadx. No te preocupes, no todos los días sale el sol y a veces nos sentimos tristes. Realiza prácticas positivas para ti a fin de que la tristeza no te lleve a perder lo que has conseguido.';
+                } else if (score >= 40 && score <= 73) {
+                    resultMessage.innerText = 'En estos momentos tu autoestima es baja. Te recomendamos que reflexiones sobre qué te ha traído hasta aquí y no te desanimes en la búsqueda de nuevos estímulos que contribuyan a que tu ánimo vuelva a recuperarse. Las técnicas que aparecen en este libro pueden servirte de ayuda.';
+                } else {
+                    resultMessage.innerText = 'No se pudo obtener el resultado.';
+                }
+            } else {
+                resultMessage.innerText = 'No se pudo obtener el resultado.';
+            }
+        });
+    </script>
+</body>
+</html>
